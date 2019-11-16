@@ -8,7 +8,7 @@ namespace DietManagement
 {
     public class DBConnect
     {
-        private const string sqlCommand = @"Data Source=USER-PC\SQLEXPRESS;Initial Catalog=DietManagement;User ID=capoo;Pwd=capoo";
+        private const string sqlCommand = @"Data Source=DESKTOP-AIS9VBL\SQLEXPRESS;Initial Catalog=DietManagement;User ID=capoo;Pwd=capoo";
 
         public SqlConnection conn { get; set; }
 
