@@ -12,6 +12,9 @@ namespace DietManagement
 
         public SqlConnection conn { get; set; }
 
+        /// <summary>
+        /// 建構子
+        /// </summary>
         public DBConnect()
         {
             conn = new SqlConnection(sqlCommand);
