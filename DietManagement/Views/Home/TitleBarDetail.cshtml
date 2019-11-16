@@ -1,5 +1,6 @@
-﻿@{
-
+﻿@model Member
+@{
+    var member = Model;
 }
 @*標籤列內容*@
     <div class="tab-content" style="margin-top: 15px;">
@@ -11,6 +12,8 @@
         @*食譜推推*@
         <div id="Recipe" class="tab-pane fade" style="background-color: #b3efb6">
             <h3 style="background-color: #dfa4f8">食譜推推</h3>
+            <span>@member.Name</span>
+            <span>@member.Nickname</span>
         </div>
         @*食物查詢*@
         <div id="Food" class="tab-pane fade" style="background-color: #f7c875">

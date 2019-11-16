@@ -1,6 +1,7 @@
-﻿@{
-
+﻿@model Member;
+@{
+    var member = Model;
 }
 <partial name="TitleBar" />
 
-<partial name="TitleBarDetail" />
+<partial name="TitleBarDetail" model="member"/>
