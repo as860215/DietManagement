@@ -2,12 +2,22 @@
 @{
     var member = Model;
 }
+<style>
+    label{
+        font-size:20px;
+        font-family:微軟正黑體;
+    }
+</style>
 @*標籤列內容*@
     <div class="tab-content" style="margin-top: 15px;">
         @*計算熱量*@
         @*<div id="Calories" class="tab-pane fade in active"/>*@
         <div id="Calories" class="tab-pane fade">
-            <h3 style="background-color: #dfa4f8">計算熱量</h3>
+            <label>性別：</label>
+            <label class="radio-inline"><input type="radio" name="optradio" checked>男</label>
+            <label class="radio-inline"><input type="radio" name="optradio">女</label>
+
+            <partial name="TitleBarDetailButton" />
         </div>
         @*食譜推推*@
         <div id="Recipe" class="tab-pane fade" style="background-color: #b3efb6">
