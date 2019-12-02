@@ -1,108 +1,65 @@
 ﻿
-    <style>
-                /* Variables
-        –––––––––––––––––––––––––––––––––––––––––––––––––– */
-                :root {
-                    --primary-c: #2196F3;
-                    --secondary-c: #B2D7F5;
-                    --white: #FDFBFB;
-                    --text: #082943;
-                    --bg: var(--primary-c);
-                }
+<style>
+    :root {
+        --primary-c: #2196F3;
+        --secondary-c: #B2D7F5;
+        --white: #FDFBFB;
+        --text: #082943;
+        --bg: var(--primary-c);
+    }
 
+    .radio-li {
+        display: block;
+        position: relative;
+        padding: 20px 0px;
+    }
 
-                /* Basic Config
-        –––––––––––––––––––––––––––––––––––––––––––––––––– */
+    [name=radio_gender] {
+        position: absolute;
+        visibility: hidden;
+    }
 
-                ul {
-                    list-style-type: none;
-                    padding-left: 50px;
-                    margin: 0;
-                }
+    .check {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        border-radius: 50%;
+        transition: transform .6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
 
-                li {
-                    display: block;
-                    position: relative;
-                    padding: 20px 0px;
-                }
+    input#gender_male ~ .check {
+        transform: translate(-50px, -30px);
+        background: var(--secondary-c);
+    }
 
-                h2 {
-                    margin: 10px 0;
-                    font-weight: 900;
-                }
+    input#gender_female ~ .check {
+        transform: translate(-50px, -100px);
+        background: var(--primary-c);
+        box-shadow: 0 6px 12px rgba(33, 150, 243, 0.35);
+    }
 
+    input#gender_male:checked ~ .check {
+        transform: translate(-50px, 40px);
+    }
 
-                /* Card
-        –––––––––––––––––––––––––––––––––––––––––––––––––– */
-                .card {
-                    display: flex;
-                    flex-direction: column;
-                    background: var(--white);
-                    width: 300px;
-                    padding: 20px 25px;
-                    border-radius: 20px;
-                    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
-                }
+    input#gender_female:checked ~ .check {
+        transform: translate(-50px, -25px);
+    }
+</style>
 
-
-                /* Radio Button
-        –––––––––––––––––––––––––––––––––––––––––––––––––– */
-                input[type=radio] {
-                    position: absolute;
-                    visibility: hidden;
-                }
-
-                label {
-                    cursor: pointer;
-                    font-weight: 400;
-                }
-
-                .check {
-                    width: 30px;
-                    height: 30px;
-                    position: absolute;
-                    border-radius: 50%;
-                    transition: transform .6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-                }
-
-                /* Reset */
-                input#one ~ .check {
-                    transform: translate(-50px, -30px);
-                    background: var(--secondary-c);
-                }
-
-                input#two ~ .check {
-                    transform: translate(-50px, -100px);
-                    background: var(--primary-c);
-                    box-shadow: 0 6px 12px rgba(33, 150, 243, 0.35);
-                }
-
-                /* Radio Input #1 */
-                input#one:checked ~ .check {
-                    transform: translate(-50px, 40px);
-                }
-
-                /* Radio Input #2  */
-                input#two:checked ~ .check {
-                    transform: translate(-50px, -25px);
-                }
-    </style>
-
-<div class="card">
-    <h2>Radio Buttons</h2>
-
-    <ul>
-        <li>
-            <input type="radio" name="name" id="one" checked />
-            <label for="one">Option #1</label>
-
+<div class="col-xs-3 card">
+    <input hidden id="gender" name="gender">
+    <span class="card-title">性別</span>
+    <ul style="list-style-type: none;padding-left: 50px;margin: 0;">
+        <li class="radio-li">
+            <input type="radio" name="radio_gender" id="gender_male" value="true" checked />
+            <label for="gender_male" style="cursor: pointer;font-weight: 400;">男生</label>
             <div class="check"></div>
         </li>
 
-        <li>
-            <input type="radio" name="name" id="two" />
-            <label for="two">Option #2</label>
-
+        <li class="radio-li">
+            <input type="radio" name="radio_gender" id="gender_female" value="false" />
+            <label for="gender_female" style="cursor: pointer;font-weight: 400;">女生</label>
             <div class="check"></div>
         </li>
     </ul>

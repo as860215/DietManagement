@@ -7,17 +7,105 @@
         font-size:20px;
         font-family:微軟正黑體;
     }
+    span{
+        font-size:16px;
+        font-family: 微軟正黑體;
+    }
+    
+    .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+        width: 300px;
+        padding: 20px 25px;
+        border-radius: 20px;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.13);
+    }
+
+    .card-title {
+        font-size: 24px;
+        margin: 10px 0;
+        font-weight: 900;
+    }
+
+    input {
+        outline-style: none;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 13px 14px;
+        height:16px;
+        font-size: 16px;
+        font-family: "Microsoft soft";
+    }
+        input:focus {
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+
+    .sportButton {
+        border: none;
+        color: black;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        cursor: pointer;
+        background-color: white; 
+        border: 2px solid #008CBA;
+    }
+        .sportButton:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+    .sentButton {
+        background-color: white;
+        color: black;
+        border: 2px solid #f44336;
+    }
+        .sentButton:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
 </style>
 @*標籤列內容*@
     <div class="tab-content" style="margin-top: 15px;">
         @*計算熱量*@
         @*<div id="Calories" class="tab-pane fade in active"/>*@
         <div id="Calories" class="tab-pane fade">
-            <label>性別：</label>
-            <label class="radio-inline"><input type="radio" name="optradio" checked>男</label>
-            <label class="radio-inline"><input type="radio" name="optradio">女</label>
-
-            <partial name="TitleBarDetailButton" />
+            <div class="row">
+                <partial name="TitleBarDetailButton" />
+                <div class="col-xs-1"></div>
+                <div class="col-xs-3 card">
+                    <span class="card-title">年齡(歲)</span>
+                    <input id="age" name="age" type="number" min="1" max="99" />
+                    <span class="card-title">身高(公分)</span>
+                    <input id="height" name="height" min="1" max="999" />
+                    <span class="card-title">體重(公斤)</span>
+                    <input id="weight" name="weight" min="1" max="999" />
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-3 card">
+                    <span class="card-title">運動</span>
+                    <input hidden id="sportType" name="sportType"/>
+                    <button class="sportButton" name="sport" value="0"><span>久坐不動</span></button>
+                    <button class="sportButton" name="sport" value="1"><span>家事走動</span></button>
+                    <button class="sportButton" name="sport" value="2"><span>有氧運動</span></button>
+                    <button class="sportButton" name="sport" value="3"><span>重量訓練</span></button>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="sportButton sentButton" id="calculation"><span>送出</span></button>
+                </div>
+            </div>
         </div>
         @*食譜推推*@
         <div id="Recipe" class="tab-pane fade" style="background-color: #b3efb6">

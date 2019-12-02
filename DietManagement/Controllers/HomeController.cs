@@ -12,8 +12,8 @@ namespace DietManagement.Controllers
     {
         public IActionResult Index()
         {
-            var member = new MemberHandle().GetMember("1");
-            return View(member);
+            //var member = new MemberHandle().GetMember("1");
+            return View(new Member());
         }
     }
 }
