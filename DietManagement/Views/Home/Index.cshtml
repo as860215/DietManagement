@@ -1,6 +1,7 @@
 ﻿@model Member;
 @{
     var member = Model;
+    ViewData["Title"] = "健身飲食管理系統";
 }
 <partial name="TitleBar" />
 
@@ -14,6 +15,7 @@
             eventSet();
         });
 
+        //綁定計算熱量觸發事件
         function eventSet() {
             //性別
             $("[name=radio_gender]").on("click", function () {
