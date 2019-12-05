@@ -38,10 +38,10 @@ namespace DietManagement.Controllers
         }
 
         /// <summary>
-        /// 使用者資訊
+        /// 追蹤
         /// </summary>
         /// <returns></returns>
-        public IActionResult User()
+        public IActionResult Track()
         {
             return PartialView("");
         }

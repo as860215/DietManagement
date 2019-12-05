@@ -30,10 +30,10 @@
             <div class="navbar-collapse collapse">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">首頁</a>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a data-toggle="tab" asp-controller="Acount" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
-                    <li><a data-toggle="tab" asp-controller="Acount" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</a></li>
-                    <li><a data-toggle="tab" asp-controller="Acount" asp-action="Registered"><span class="glyphicon glyphicon-plus"></span>&nbsp;Registered</a></li>
-                    <li><a data-toggle="tab" asp-controller="Acount" asp-action="User"><span class="glyphicon glyphicon-user"></span>&nbsp;User</a></li>
+                    <li><label data-toggle="tab" id="login" class="navbar-brand account" style="width: 110px;padding: 15px 0;margin-left: 0px;text-align: center;"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</label></li>
+                    <li><label data-toggle="tab" id="logout" class="navbar-brand account" style="width: 110px;padding: 15px 0;margin-left: 0px;text-align: center;" asp-controller="Acount" asp-action="Logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Logout</label></li>
+                    <li><label data-toggle="tab" id="registered"class="navbar-brand account" style="width: 120px;padding: 15px 0;margin-left: 0px;text-align: center;" asp-controller="Acount" asp-action="Registered"><span class="glyphicon glyphicon-plus"></span>&nbsp;Registered</label></li>
+                    <li><label data-toggle="tab" id="track" class="navbar-brand account" style="width: 110px;padding: 15px 0;margin-left: 0px;text-align: center;"><span class="glyphicon glyphicon-user"></span>&nbsp;Track</label></li>
                 </ul>
             </div>
         </div>
@@ -46,6 +46,7 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/account.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
