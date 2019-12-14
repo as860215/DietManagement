@@ -1,42 +1,48 @@
-﻿<style>
-    .registered{
-        padding:10px 0px;
+﻿@{
+    var member = new Member();
+    var gender = Enum.GetValues(typeof(Gender)).Cast<Gender>().Select(n => new SelectListItem { Text = n.GetDescription(), Value = ((int)n).ToString() }).ToList();
+}
+<style>
+    .registered {
+        padding: 10px 0px;
     }
 </style>
 
-<div style="width:52%;margin:0px auto">
-    <div class="row registered">
-        <span>姓名：</span>
-        <input type="text">
-        <span style="padding-left:8%">帳號：</span>
-        <input type="text">
+<form id="form_registered">
+    <div style="width:52%;margin:0px auto">
+        <div class="row registered">
+            <span>姓名：</span>
+            <input type="text" asp-for="@member.Name" autocomplete="off"/>
+            <span style="padding-left:8%">帳號：</span>
+            <input type="text" asp-for="@member.Account" autocomplete="off" />
+        </div>
+        <div class="row registered">
+            <span>性別：</span>
+            <select asp-items="gender" asp-for="@member.Gender" style="width:224px;height:28px" autocomplete="off"></select>
+            <span style="padding-left:8%">密碼：</span>
+            <input type="password" asp-for="@member.Password" autocomplete="off" />
+        </div>
+        <div class="row registered">
+            <span>生日：</span>
+            <input type="date" asp-for="@member.Birthday" style="width:224px" autocomplete="off"/>
+            <span style="padding-left:8%">身高：</span>
+            <input type="text" asp-for="@member.Height" autocomplete="off" />
+        </div>
+        <div class="row registered">
+            <span>暱稱：</span>
+            <input type="text" asp-for="@member.Nickname" autocomplete="off" />
+            <span style="padding-left:8%">體重：</span>
+            <input type="text" asp-for="@member.Weight" autocomplete="off" />
+        </div>
+        <div class="row registered">
+            <span>電話：</span>
+            <input type="text" asp-for="@member.Phone" autocomplete="off" />
+            <span style="padding-left:8%">Mail：</span>
+            <input type="text" asp-for="@member.Mail" autocomplete="off" />
+        </div>
+        <div class="row center" style="margin:30px auto;width:300px">
+            <button class="sportButton redButton" id="btn_cancel"><span>取消</span></button>
+            <button class="sportButton" style="float:right" id="btn_registered"><span>註冊</span></button>
+        </div>
     </div>
-    <div class="row registered">
-        <span>性別：</span>
-        <input type="text">
-        <span style="padding-left:8%">密碼：</span>
-        <input type="text">
-    </div>
-    <div class="row registered">
-        <span>生日：</span>
-        <input type="text">
-        <span style="padding-left:8%">身高：</span>
-        <input type="text">
-    </div>
-    <div class="row registered">
-        <span>暱稱：</span>
-        <input type="text">
-        <span style="padding-left:8%">體重：</span>
-        <input type="text">
-    </div>
-    <div class="row registered">
-        <span>電話：</span>
-        <input type="text">
-        <span style="padding-left:8%">Mail：</span>
-        <input type="text">
-    </div>
-    <div class="row center" style="margin:30px auto;width:300px">
-        <button class="sportButton redButton"><span>取消</span></button>
-        <button class="sportButton" style="float:right"><span>註冊</span></button>
-    </div>
-</div>
+</form>

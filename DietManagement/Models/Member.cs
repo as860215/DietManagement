@@ -16,7 +16,7 @@ namespace DietManagement
         /// 成員編號
         /// </summary>
         [DataMember]
-        public string MemmberId { get; set; }
+        public string MemberId { get; set; }
         /// <summary>
         /// 姓名
         /// </summary>
@@ -26,7 +26,7 @@ namespace DietManagement
         /// 性別
         /// </summary>
         [DataMember]
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
         /// <summary>
         /// 暱稱
         /// </summary>
@@ -46,12 +46,12 @@ namespace DietManagement
         /// 身高
         /// </summary>
         [DataMember]
-        public int Height { get; set; }
+        public int? Height { get; set; }
         /// <summary>
         /// 體重
         /// </summary>
         [DataMember]
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
         /// <summary>
         /// 電話
         /// </summary>
@@ -62,5 +62,10 @@ namespace DietManagement
         /// </summary>
         [DataMember]
         public string Mail { get; set; }
+        /// <summary>
+        /// 生日
+        /// </summary>
+        [DataMember]
+        public DateTime? Birthday { get; set; }
     }
 }

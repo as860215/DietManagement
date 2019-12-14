@@ -14,8 +14,15 @@
     <script>
         let calories;
         $(function () {
+            urlSet();
             eventSet();
         });
+
+        //設定各個url位址
+        function urlSet() {
+            registeredEvent('@Url.RouteUrl("Account_Registered")');
+            loginEvent('@Url.RouteUrl("Account_Login")');
+        }
 
         //綁定計算熱量觸發事件
         function eventSet() {

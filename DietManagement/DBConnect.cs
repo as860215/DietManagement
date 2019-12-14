@@ -9,7 +9,7 @@ namespace DietManagement
 {
     public class DBConnect
     {
-        private string sqlCommand;
+        public string sqlCommand;
 
         public SqlConnection conn { get; set; }
 
@@ -22,8 +22,8 @@ namespace DietManagement
             {
                 sqlCommand = sr.ReadToEnd();
             }
-            conn = new SqlConnection(sqlCommand);
-            conn.Open();
+            conn = new SqlConnection();
+            conn.connOpen(sqlCommand);
         }
     }
 }

@@ -8,15 +8,20 @@ using DietManagement.Models;
 
 namespace DietManagement.Controllers
 {
+    [Route("Account")]
     public class AccountController : Controller
     {
         /// <summary>
         /// 登入
         /// </summary>
+        /// <param name="Account">帳號</param>
+        /// <param name="Password">密碼</param>
         /// <returns></returns>
-        public IActionResult Login()
+        [HttpPost, Route("Login", Name = "Account_Login")]
+        public IActionResult Login(string Account,string Password)
         {
-            return PartialView("");
+            var member = new MemberHandle().Login(Account, Password);
+            return new JsonResult(member);
         }
 
         /// <summary>
@@ -32,9 +37,11 @@ namespace DietManagement.Controllers
         /// 註冊
         /// </summary>
         /// <returns></returns>
-        public IActionResult Registered()
+        [HttpPost,Route("Registered",Name = "Account_Registered")]
+        public IActionResult Registered(Member member)
         {
-            return PartialView("");
+            new MemberHandle().InsertMember(member);
+            return Ok();
         }
 
         /// <summary>
