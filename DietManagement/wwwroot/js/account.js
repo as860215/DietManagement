@@ -40,13 +40,19 @@ function removeTabActive() {
 function registeredEvent(url) {
     $("#btn_registered").on("click", function () {
         let datas = $("#form_registered").serializeArray();
+        let members = {};
         datas.forEach(n => {
             n.name = n.name.replace("member.", "");
         });
+        $.map(datas, function (n, i) {
+            members[n['name']] = n['value'];
+        });
+        let data = { "Account": "capoo" };
         $.ajax({
             url: url,
             type: 'POST',
-            data: { member: JSON.stringify(datas) },
+            dataType: 'json',
+            data: { member: members},
             success: function (data) {
                 console.log(data);
             }
