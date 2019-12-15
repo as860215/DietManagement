@@ -40,8 +40,13 @@ namespace DietManagement.Controllers
         [HttpPost,Route("Registered",Name = "Account_Registered")]
         public IActionResult Registered(Member member)
         {
+            var checkAccount = new MemberHandle().CheckAccount(member.Account);
+            if(checkAccount == true)
+            {
+                return new JsonResult(new { fail= "Account duplicate" });
+            }
             new MemberHandle().InsertMember(member);
-            return Ok();
+            return PartialView("../Home/Account/_registeredSuccess");
         }
 
         /// <summary>

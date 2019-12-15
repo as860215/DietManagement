@@ -39,6 +39,20 @@ function removeTabActive() {
  */
 function registeredEvent(url) {
     $("#btn_registered").on("click", function () {
+        let check = true;
+        let $required = $(".registered-input");
+        $required.each(function () {
+            if ($(this).val() === "") {
+                $("#registered_alert").show();
+                check = false;
+            }
+        });
+        if (check === false) {
+            return;
+        }
+
+        $("#registered_alert").hide();
+
         let datas = $("#form_registered").serializeArray();
         let members = {};
         datas.forEach(n => {
@@ -47,15 +61,21 @@ function registeredEvent(url) {
         $.map(datas, function (n, i) {
             members[n['name']] = n['value'];
         });
-        let data = { "Account": "capoo" };
         $.ajax({
             url: url,
             type: 'POST',
-            dataType: 'json',
-            data: { member: members},
-            success: function (data) {
-                console.log(data);
+            data: { member: members}
+        }).done(function (data) {
+            if (data.fail !== undefined) {
+                alert("註冊失敗，帳號重複！");
+                $("#member_Account").val("");
+                return;
             }
+            removeTabActive();
+            $("#otherPartial").html(data);
+            setTimeout(function () {
+                window.location.reload();
+            }, 3000);
         });
     });
 }

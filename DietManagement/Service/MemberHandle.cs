@@ -86,5 +86,22 @@ namespace DietManagement
                 return conn.Query<int>(sql).FirstOrDefault() + 1;
             }
         }
+
+        /// <summary>
+        /// 檢查帳號是否已存在
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckAccount(string Account)
+        {
+            using (conn)
+            {
+                var sql = $@"select Account from Member where Account = '{Account}'";
+                var result = conn.Query<string>(sql).ToList();
+                if (result.Count > 0)
+                    return true;
+                else
+                    return false;
+            }
+        }
     }
 }

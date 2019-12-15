@@ -1,0 +1,27 @@
+﻿<div class="row">
+    <partial name="TitleBarDetailButton" />
+    <div class="col-xs-1"></div>
+    <div class="col-xs-3 card">
+        <span class="card-title">年齡(歲)</span>
+        <input id="age" name="age" type="number" min="1" max="99" />
+        <span class="card-title">身高(公分)</span>
+        <input id="height" name="height" min="1" max="999" />
+        <span class="card-title">體重(公斤)</span>
+        <input id="weight" name="weight" min="1" max="999" />
+    </div>
+    <div class="col-xs-1"></div>
+    <div class="col-xs-3 card">
+        <span class="card-title">運動</span>
+        <input hidden id="sportType" name="sportType" />
+        <button class="sportButton" name="sport" value="0"><span>久坐不動</span></button>
+        <button class="sportButton" name="sport" value="1"><span>家事走動</span></button>
+        <button class="sportButton" name="sport" value="2"><span>有氧運動</span></button>
+        <button class="sportButton" name="sport" value="3"><span>重量訓練</span></button>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-xs-12">
+        <button class="sportButton redButton" id="calculation"><span>送出</span></button>
+    </div>
+</div>

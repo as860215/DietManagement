@@ -6,25 +6,28 @@
     .registered {
         padding: 10px 0px;
     }
+    .registered-span{
+        color:red;
+    }
 </style>
 
 <form id="form_registered">
     <div style="width:52%;margin:0px auto">
         <div class="row registered">
-            <span>姓名：</span>
-            <input type="text" asp-for="@member.Name" autocomplete="off"/>
-            <span style="padding-left:8%">帳號：</span>
-            <input type="text" asp-for="@member.Account" autocomplete="off" />
+            <span class="registered-span">姓名：</span>
+            <input class="registered-input" type="text" asp-for="@member.Name" autocomplete="off" />
+            <span class="registered-span" style="padding-left: 8%">帳號：</span>
+            <input class="registered-input" type="text" asp-for="@member.Account" autocomplete="off" />
         </div>
         <div class="row registered">
-            <span>性別：</span>
+            <span class="registered-span">性別：</span>
             <select asp-items="gender" asp-for="@member.Gender" style="width:224px;height:28px" autocomplete="off"></select>
-            <span style="padding-left:8%">密碼：</span>
-            <input type="password" asp-for="@member.Password" autocomplete="off" />
+            <span class="registered-span" style="padding-left:8%">密碼：</span>
+            <input class="registered-input" type="password" asp-for="@member.Password" autocomplete="off" />
         </div>
         <div class="row registered">
-            <span>生日：</span>
-            <input type="date" asp-for="@member.Birthday" style="width:224px" autocomplete="off"/>
+            <span class="registered-span">生日：</span>
+            <input class="registered-input" type="date" asp-for="@member.Birthday" style="width:224px" autocomplete="off" />
             <span style="padding-left:8%">身高：</span>
             <input type="text" asp-for="@member.Height" autocomplete="off" />
         </div>
@@ -40,9 +43,12 @@
             <span style="padding-left:8%">Mail：</span>
             <input type="text" asp-for="@member.Mail" autocomplete="off" />
         </div>
+        <div class="row registered" style="display:none;text-align:center" id="registered_alert">
+            <span style="color:red">紅色字體標題為必填項目！！</span>
+        </div>
         <div class="row center" style="margin:30px auto;width:300px">
-            <button class="sportButton redButton" id="btn_cancel"><span>取消</span></button>
-            <button class="sportButton" style="float:right" id="btn_registered"><span>註冊</span></button>
+            <span class="sportButton redButton" id="btn_cancel"><span>取消</span></span>
+            <span class="sportButton" style="float:right" id="btn_registered"><span>註冊</span></span>
         </div>
     </div>
 </form>
