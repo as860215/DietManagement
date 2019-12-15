@@ -55,12 +55,12 @@ namespace DietManagement.Controllers
         }
 
         /// <summary>
-        /// 追蹤
+        /// 追蹤-歷史資料
         /// </summary>
         /// <returns></returns>
-        public IActionResult Track()
+        public IActionResult TrackHistory()
         {
-            return PartialView("");
+            return new JsonResult(null);
         }
     }
 }

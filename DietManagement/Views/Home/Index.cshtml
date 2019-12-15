@@ -10,6 +10,7 @@
 <div id="otherPartial"></div>
 
 <partial name="UserData" />
+<partial name="../Home/Account/_Track" />
 
 @section scripts
 {
@@ -137,5 +138,15 @@
             });
         });
         //=========食物查詢=========
+        //=========個人追蹤=========
+        $('#track_picker').datetimepicker({
+            format:'yyyy/mm/dd'
+        }).on('dp.change', function (e) {
+        });
+        $("#btn_trackHistory").on("click", function () {
+            var ctx = document.getElementById("canvas").getContext("2d");
+            drawLineCanvas(ctx, lineChartData);
+        });
+        //=========個人追蹤=========
     </script>
 }
