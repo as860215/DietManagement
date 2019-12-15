@@ -1,0 +1,19 @@
+﻿@model  (Dictionary<string,Recipe>,Dictionary<string,List<Food>>)
+@{
+    var (recipes,foods) = Model;
+}
+
+@foreach(var recipe in recipes)
+{
+    <div style="text-align:center">
+        <span style="font-size:16pt;color:saddlebrown">總熱量：@recipe.Value.Calories 大卡 →</span>
+        @for(var i = 0;i < foods[recipe.Key].Count; i++)
+        {
+            if(i != 0)
+            {
+                <span> ＋ </span>
+            }
+            <span>@foods[recipe.Key].ElementAtOrDefault(i).Name （@(foods[recipe.Key].ElementAtOrDefault(i).Calories) 大卡）</span>
+        }
+    </div>
+}

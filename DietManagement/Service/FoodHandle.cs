@@ -23,6 +23,18 @@ namespace DietManagement
                 return conn.Query<Food>(sql).ToList();
             }
         }
+        /// <summary>
+        /// 透過食物編號取得詳細食物內容
+        /// </summary>
+        /// <returns></returns>
+        public Food GetFoodById(string foodId)
+        {
+            using (conn)
+            {
+                var sql = $@"select * from Food where FoodId = '{foodId}'";
+                return conn.Query<Food>(sql).FirstOrDefault();
+            }
+        }
 
         /// <summary>
         /// 透過商店編號取得食物清單

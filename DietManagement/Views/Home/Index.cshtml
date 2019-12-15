@@ -92,11 +92,29 @@
             eventSet();
         });
         //=========計算熱量=========
+        //=========食譜推推=========
+        $("#btn_recipeSearch").on("click", function () {
+            let calories = $("#recipe_calories").val();
+            $.ajax({
+                url: '@Url.RouteUrl("Home_GetRecipe")',
+                type: 'POST',
+                data: {calories:calories}
+            }).done(function (data) {
+                $("#recipe_searchResult").empty();
+                if (data === undefined || data === null) {
+                    $("#recipe_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到指定範圍內相關的食譜！</span></div>");
+                }
+                else {
+                    $("#recipe_searchResult").html(data);
+                }
+            });
+        });
+        //=========食譜推推=========
         //=========食物查詢=========
         $("#food_selectFood").on("change", function () {
             let name = $("#food_selectFood option:selected").text();
             let calories = $("#food_selectFood option:selected").val();
-            if (calories == 0) {
+            if (name == "請選擇...") {
                 $("#food_calories").text("");
                 return;
             }

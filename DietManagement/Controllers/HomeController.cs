@@ -27,5 +27,30 @@ namespace DietManagement.Controllers
                 return new JsonResult(null);
             return PartialView("../Home/Detail/_FoodSearchShopFood", foods);
         }
+
+        /// <summary>
+        /// 查詢食譜
+        /// </summary>
+        /// <param name="calories">查詢的卡路里</param>
+        /// <returns></returns>
+        [HttpPost, Route("GetRecipe", Name = "Home_GetRecipe")]
+        public IActionResult GetRecipe(int calories)
+        {
+            var recipe = new RecipeHandle().GetRecipeByCalories(calories + 200, calories - 200);
+            if (recipe.Count == 0)
+                return new JsonResult(null);
+            var recipeDic = recipe.ToDictionary(n => n.RecipeId, n => n);
+            var foodDic = new Dictionary<string, List<Food>>();
+            recipe.ForEach(n =>
+            {
+                foodDic.Add(n.RecipeId, new List<Food>());
+                n.Foods.FoodId.ForEach(m => {
+                    var food = new FoodHandle().GetFoodById(m);
+                    foodDic[n.RecipeId].Add(food);
+                });
+            });
+
+            return PartialView("../Home/Detail/_RecipeResult", (recipeDic, foodDic));
+        }
     }
 }
