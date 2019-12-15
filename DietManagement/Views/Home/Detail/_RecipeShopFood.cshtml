@@ -1,0 +1,11 @@
+﻿@model List<Food>
+@{
+    var foods = Model;
+}
+
+@foreach(var food in foods)
+{
+    <div style="text-align:center">
+        <span style="font-size:16pt;color:saddlebrown">@food.Name @food.Calories 大卡</span>
+    </div>
+}

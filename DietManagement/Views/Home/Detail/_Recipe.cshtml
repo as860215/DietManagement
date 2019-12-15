@@ -1,0 +1,25 @@
+﻿
+@{
+    //取得食物清單
+    var foods = new RecipeHandle().GetFood();
+    foods.Insert(0, new Food() { Name = "請選擇...", Calories = 0 });
+    var foodsItem = foods.Select(n => new SelectListItem() { Text = n.Name, Value = n.Calories.ToString() });
+
+    //取得商店清單
+    var shops = new RecipeHandle().GetShop();
+    shops.Insert(0, new Shop() { Name = "請選擇...", ShopId = "00000000" });
+    var shopsItem = shops.Select(n => new SelectListItem() { Text = n.Name, Value = n.ShopId });
+}
+<div style="text-align:center;margin:50px">
+    <span style="font-size:16pt">食物查詢：</span>
+    <select asp-items="foodsItem" id="food_selectFood" style="font-size: 16pt;width: 224px; height: 36px" autocomplete="off"></select>
+    <br />
+    <span id="food_calories" style="font-size:16pt;color:brown"></span>
+</div>
+<div style="text-align:center; margin: 50px 50px 0px 50px;">
+    <span style="font-size:16pt">商店查詢：</span>
+    <select asp-items="shopsItem" id="food_selectShop" style="font-size: 16pt;width: 224px; height: 36px" autocomplete="off"></select>
+    <br />
+    <span class="sportButton" style="margin:30px" id="btn_shopSearch"><span>商店查詢</span></span>
+</div>
+<div id="food_searchResult"></div>

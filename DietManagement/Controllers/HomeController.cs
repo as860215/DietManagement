@@ -12,8 +12,20 @@ namespace DietManagement.Controllers
     {
         public IActionResult Index()
         {
-            //var member = new MemberHandle().GetMember("1");
             return View(new Member());
+        }
+
+        /// <summary>
+        /// 根據取得商店內的食物清單
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("GetShopFoods", Name = "Home_GetShopFoods")]
+        public IActionResult GetShopFoods(string shopId)
+        {
+            var foods = new RecipeHandle().GetFoodsByShopId(shopId);
+            if (foods.Count == 0)
+                return new JsonResult(null);
+            return PartialView("../Home/Detail/_RecipeShopFood", foods);
         }
     }
 }

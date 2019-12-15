@@ -27,6 +27,7 @@
             logoutEvent('@Url.RouteUrl("Account_Logout")');
         }
 
+        //=========計算熱量=========
         //綁定計算熱量觸發事件
         function eventSet() {
             //性別
@@ -90,5 +91,33 @@
 
             eventSet();
         });
+        //=========計算熱量=========
+        //=========食物查詢=========
+        $("#food_selectFood").on("change", function () {
+            let name = $("#food_selectFood option:selected").text();
+            let calories = $("#food_selectFood option:selected").val();
+            if (calories == 0) {
+                $("#food_calories").text("");
+                return;
+            }
+            $("#food_calories").text(name + " " + calories + " 大卡")
+        });
+        $("#btn_shopSearch").on("click", function () {
+            let shopId = $("#food_selectShop").val();
+            $.ajax({
+                url: '@Url.RouteUrl("Home_GetShopFoods")',
+                type: 'POST',
+                data: {shopId:shopId}
+            }).done(function (data) {
+                $("#food_searchResult").empty();
+                if (data === undefined || data === null) {
+                    $("#food_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到商店內的食物資訊！</span></div>");
+                }
+                else {
+                    $("#food_searchResult").html(data);
+                }
+            });
+        });
+        //=========食物查詢=========
     </script>
 }
