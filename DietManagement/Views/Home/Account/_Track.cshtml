@@ -16,22 +16,23 @@
     </div>
     <div class="row">
         <div class="col-sm-1">
-            <span style="font-size:16pt">體重：</span>
+            <span style="font-size:16pt">熱量：</span>
         </div>
         <div class="col-sm-3">
-            <input type="text" />
+            <input type="text" id="track_calories" />
         </div>
     </div>
     <div class="row">
         <div class="col-sm-1">
-            <span style="font-size:16pt">熱量：</span>
+            <span style="font-size:16pt">體重：</span>
         </div>
         <div class="col-sm-3">
-            <input type="text" />
+            <input type="text" id="track_weight" />
         </div>
     </div>
     <span class="sportButton redButton" id="btn_trackHistory"><span>歷史紀錄</span></span>
     <span class="sportButton" style="margin:30px" id="btn_trackInsert"><span>新增紀錄</span></span>
-    <br/>
+    <span style="color:red" id="track_alert"></span>
+    <br />
     <canvas id="canvas"></canvas>
 </div>

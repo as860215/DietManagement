@@ -141,8 +141,58 @@
         //=========個人追蹤=========
         $('#track_picker').datetimepicker({
             format:'yyyy/mm/dd'
-        }).on('dp.change', function (e) {
         });
+        $("#btn_trackInsert").on("click", function () {
+            let memberId = $("#UserData_MemberId").val();
+            if (memberId == "" || memberId == undefined) {
+                alert("新增失敗，您尚未登入，請重新登入！");
+                window.location.reload();
+                return;
+            }
+            let datetime = $("#track_picker").data("date");
+            if (datetime == undefined) {
+                $("#track_alert").text("必須選擇日期！");
+                return;
+            }
+
+            let calories = $("#track_calories").val();
+            let weight = $("#track_weight").val();
+
+            if (calories == "" && weight == "") {
+                $("#track_alert").text("必須填寫熱量或熱量！");
+                return;
+            }
+            $("#track_alert").text("");
+
+            let data = {};
+            if (calories != "" && calories != undefined) {
+                data = { MemberId: memberId, HistoryType: 0, Value: calories, DataDate: datetime };
+                addHistoryData(data);
+            }
+            if (weight != "" && weight != undefined) {
+                data = { MemberId: memberId, HistoryType: 1, Value: weight, DataDate: datetime };
+                addHistoryData(data);
+            }
+        });
+        /**
+         * 歷史資料AJAX
+         */
+        function addHistoryData(data) {
+            $.ajax({
+                url: '@Url.RouteUrl("Account_AddHistory")',
+                type: 'POST',
+                data: {history:data}
+            }).done(function (data) {
+                if (data == null || data == undefined) {
+                    $("#track_alert").text("新增失敗！");
+                    return;
+                }
+                if(data.success == "insert")
+                    $("#track_alert").text("已新增一筆資料：「" + data.dataDate + " " + data.type + " " + data.value + "」");
+                else if(data.success == "update")
+                    $("#track_alert").text("已更新一筆資料：「" + data.dataDate + " " + data.type + " " + data.value + "」");
+            });
+        }
         $("#btn_trackHistory").on("click", function () {
             var ctx = document.getElementById("canvas").getContext("2d");
             drawLineCanvas(ctx, lineChartData);

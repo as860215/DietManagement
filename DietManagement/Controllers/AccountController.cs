@@ -55,6 +55,24 @@ namespace DietManagement.Controllers
         }
 
         /// <summary>
+        /// 新增歷史資訊
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("AddHistory", Name = "Account_AddHistory")]
+        public IActionResult AddHistory(History history)
+        {
+            var checkHistory = new HistoryHandle().CheckDuplicate(history);
+            if(checkHistory != null)
+            {
+                history.HistoryId = checkHistory.HistoryId;
+                new HistoryHandle().UpdateHistoryData(history);
+                return new JsonResult(new { success = "update", type = history.HistoryType.GetDescription(), value = history.Value, dataDate = history.DataDate.ToString("yyyy/MM/dd") });
+            }
+            new HistoryHandle().AddHistoryData(history);
+            return new JsonResult(new { success = "insert", type = history.HistoryType.GetDescription(), value = history.Value ,dataDate = history.DataDate.ToString("yyyy/MM/dd")});
+        }
+
+        /// <summary>
         /// 追蹤-歷史資料
         /// </summary>
         /// <returns></returns>
