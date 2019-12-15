@@ -25,7 +25,7 @@ namespace DietManagement.Controllers
             var foods = new RecipeHandle().GetFoodsByShopId(shopId);
             if (foods.Count == 0)
                 return new JsonResult(null);
-            return PartialView("../Home/Detail/_RecipeShopFood", foods);
+            return PartialView("../Home/Detail/_FoodSearchShopFood", foods);
         }
     }
 }
