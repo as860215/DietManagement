@@ -30,9 +30,13 @@
             <input type="text" id="track_weight" />
         </div>
     </div>
-    <span class="sportButton redButton" id="btn_trackHistory"><span>歷史紀錄</span></span>
     <span class="sportButton" style="margin:30px" id="btn_trackInsert"><span>新增紀錄</span></span>
+    <span class="sportButton redButton" id="btn_trackHistory_calories"><span>熱量歷史紀錄</span></span>
+    <span class="sportButton redButton" id="btn_trackHistory_weight"><span>體重歷史紀錄</span></span>
     <span style="color:red" id="track_alert"></span>
+    <input type="date" id="track_historyDate" style="display:none" />
+    <input type="hidden" id="track_historyYear" style="display:none" />
+    <input type="hidden" id="track_historyMonth" style="display:none" />
     <br />
     <canvas id="canvas"></canvas>
 </div>

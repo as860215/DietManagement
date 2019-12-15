@@ -26,6 +26,22 @@ namespace DietManagement
         }
 
         /// <summary>
+        /// 根據成員編號取得指定月份所有資料
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        public List<History> GetMonthHisotry(string memberId,DateTime dateTime,HistoryType historyType)
+        {
+            var firstDate = dateTime.ToString("yyyy/MM") + "/01";
+            var lastDate = dateTime.AddMonths(1).ToString("yyyy/MM") + "/01";
+            using (conn)
+            {
+                var sql = $@"select * from History where MemberId='{memberId}' AND HistoryType='{(int)historyType}' AND DataDate >= '{firstDate}' AND DataDate < '{lastDate}' order by DataDate";
+                return conn.Query<History>(sql).ToList();
+            }
+        }
+
+        /// <summary>
         /// 檢查當天是否有重複紀錄
         /// </summary>
         /// <param name="history"></param>

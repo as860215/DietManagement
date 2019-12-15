@@ -76,9 +76,11 @@ namespace DietManagement.Controllers
         /// 追蹤-歷史資料
         /// </summary>
         /// <returns></returns>
-        public IActionResult TrackHistory()
+        [HttpPost, Route("TrackHistory", Name = "Account_TrackHistory")]
+        public IActionResult TrackHistory(string memberId, DateTime dateTime,HistoryType historyType)
         {
-            return new JsonResult(null);
+            var histories = new HistoryHandle().GetMonthHisotry(memberId, dateTime, historyType);
+            return new JsonResult(new { histories = histories });
         }
     }
 }

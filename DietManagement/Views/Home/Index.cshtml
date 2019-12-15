@@ -10,7 +10,6 @@
 <div id="otherPartial"></div>
 
 <partial name="UserData" />
-<partial name="../Home/Account/_Track" />
 
 @section scripts
 {
@@ -193,9 +192,73 @@
                     $("#track_alert").text("已更新一筆資料：「" + data.dataDate + " " + data.type + " " + data.value + "」");
             });
         }
-        $("#btn_trackHistory").on("click", function () {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            drawLineCanvas(ctx, lineChartData);
+        $("#btn_trackHistory_calories,#btn_trackHistory_weight").on("click", function () {
+            let historyType = 0;
+            if ($(this).attr("id") == "btn_trackHistory_weight") {
+                historyType = 1;
+            }
+
+            let defaultYear = new Date().getFullYear();
+            let defaultMonth = new Date().getMonth() + 1;
+            $("#track_historyYear").val(defaultYear);
+            $("#track_historyMonth").val(new Date().getMonth());
+            $("#track_historyDate").val(defaultYear + "-" + defaultMonth + "-01");
+
+            let memberId = $("#UserData_MemberId").val();
+            let dateTime = $("#track_historyDate").val();
+
+            $.ajax({
+                url: '@Url.RouteUrl("Account_TrackHistory")',
+                type: 'POST',
+                data: { memberId: memberId, dateTime: dateTime,historyType:historyType }
+            }).done(function (data) {
+                let title = "熱量";
+                let color = "#ea464d";
+                if (historyType == 1) {
+                    title = "體重";
+                    color = "#41BDFA";
+                }
+                let label = [];
+                let value = [];
+                data.histories.forEach(function (item) {
+                    label.push(item.dataDate.replace("T00:00:00","").split("-")[2]);
+                    value.push(item.value);
+                });
+
+                //取得查詢月份有幾天
+                let searchYear = $("#track_historyYear").val();
+                let searchMonth = parseInt($("#track_historyMonth").val());
+                let monthDays = new Date(searchYear, searchMonth, 0).getDate();
+                let bottomLabel = [];   //底下的標題
+                let screenValue = [];   //畫圖的值
+                let originDataCount = 0;
+                for (i = 1; i <= monthDays; i++) {
+                    bottomLabel.push(searchYear + "/" + (searchMonth + 1) + "/" + i);
+                    if (parseInt(label[originDataCount]) == i) {
+                        screenValue.push(value[originDataCount]);
+                        originDataCount++;
+                    }
+                    else {
+                        screenValue.push(0);
+                    }
+                }
+
+                var ctx = document.getElementById("canvas").getContext("2d");
+                var lineChartData = {
+                    labels: bottomLabel, //顯示區間名稱
+                    datasets: [{
+                        label: title, // tootip 出現的名稱
+                        lineTension: 0.2, // 曲線的彎度，設0 表示直線
+                        backgroundColor: color,
+                        borderColor: color,
+                        borderWidth: 5,
+                        data: screenValue, // 資料
+                        fill: false, // 是否填滿色彩
+                    }]
+                };
+                drawLineCanvas(ctx, lineChartData);
+            });
+
         });
         //=========個人追蹤=========
     </script>
