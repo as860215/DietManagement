@@ -9,6 +9,8 @@
 
 <div id="otherPartial"></div>
 
+<partial name="UserData" />
+
 @section scripts
 {
     <script>
@@ -22,6 +24,7 @@
         function urlSet() {
             registeredEvent('@Url.RouteUrl("Account_Registered")');
             loginEvent('@Url.RouteUrl("Account_Login")');
+            logoutEvent('@Url.RouteUrl("Account_Logout")');
         }
 
         //綁定計算熱量觸發事件

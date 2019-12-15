@@ -21,16 +21,21 @@ namespace DietManagement.Controllers
         public IActionResult Login(string Account,string Password)
         {
             var member = new MemberHandle().Login(Account, Password);
-            return new JsonResult(member);
+            if(member == null)
+            {
+                return new JsonResult(null);
+            }
+            return PartialView("../Home/Account/_loginSuccess", member);
         }
 
         /// <summary>
         /// 登出
         /// </summary>
         /// <returns></returns>
+        [HttpPost, Route("Logout", Name = "Account_Logout")]
         public IActionResult Logout()
         {
-            return PartialView("");
+            return PartialView("../Home/Account/_logoutSuccess");
         }
 
         /// <summary>

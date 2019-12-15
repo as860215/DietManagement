@@ -95,13 +95,38 @@ function loginEvent(url) {
                     alert("帳號或密碼錯誤！");
                     return;
                 }
-                alert("歡迎 " + data.name + " 登入成功！");
                 removeTabActive();
-                $("#login").hide();
-                $("#registered").hide();
-                $("#logout").show();
-                $("#track").html("<span class='glyphicon glyphicon-user'></span>&nbsp;" + data.name).show();
+                $("#otherPartial").html(data);
+                $("#UserData_MemberId").val($("#login_MemberId").val());
+                $("#UserData_Account").val($("#login_Account").val());
+                $("#UserData_Name").val($("#login_Name").val());
+                setTimeout(function () {
+                    $("#login").hide();
+                    $("#registered").hide();
+                    $("#logout").show();
+                    $("#track").html("<span class='glyphicon glyphicon-user'></span>&nbsp;" + $("#UserData_Name").val()).show();
+                    $("#otherPartial").html("");
+                }, 3000);
             }
+        });
+    });
+}
+/**
+ * 登出事件
+ * @param {any} url -
+ */
+function logoutEvent(url) {
+    $("#logout").on("click", function () {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { }
+        }).done(function (data) {
+            removeTabActive();
+            $("#otherPartial").html(data);
+            setTimeout(function () {
+                window.location.reload();
+            }, 1500);
         });
     });
 }

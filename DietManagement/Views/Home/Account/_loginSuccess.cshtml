@@ -1,0 +1,16 @@
+﻿@model Member
+@{
+    var member = Model;
+}
+
+<div style="width:60%;height:300px;margin:50px auto;text-align:center">
+    <div class="card" style="width:auto;background-color:white">
+        <span class="card-title" style="color:blue;font-size:26pt">@member.Name 登入成功！</span>
+        <span>正在準備跳轉回起始頁面...</span>
+        <img src="~/images/reload.gif" style="width:250px;margin:0 auto" />
+    </div>
+</div>
+
+<input type="hidden" id="login_MemberId" value="@member.MemberId" />
+<input type="hidden" id="login_Account" value="@member.Account" />
+<input type="hidden" id="login_Name" value="@member.Name" />
