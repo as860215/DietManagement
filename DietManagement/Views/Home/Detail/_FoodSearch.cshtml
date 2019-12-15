@@ -1,12 +1,12 @@
 ﻿
 @{
     //取得食物清單
-    var foods = new RecipeHandle().GetFood();
+    var foods = new FoodHandle().GetFood();
     foods.Insert(0, new Food() { Name = "請選擇...", Calories = 0 });
     var foodsItem = foods.Select(n => new SelectListItem() { Text = n.Name, Value = n.Calories.ToString() });
 
     //取得商店清單
-    var shops = new RecipeHandle().GetShop();
+    var shops = new FoodHandle().GetShop();
     shops.Insert(0, new Shop() { Name = "請選擇...", ShopId = "00000000" });
     var shopsItem = shops.Select(n => new SelectListItem() { Text = n.Name, Value = n.ShopId });
 }

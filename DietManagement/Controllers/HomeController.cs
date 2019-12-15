@@ -22,7 +22,7 @@ namespace DietManagement.Controllers
         [HttpPost, Route("GetShopFoods", Name = "Home_GetShopFoods")]
         public IActionResult GetShopFoods(string shopId)
         {
-            var foods = new RecipeHandle().GetFoodsByShopId(shopId);
+            var foods = new FoodHandle().GetFoodsByShopId(shopId);
             if (foods.Count == 0)
                 return new JsonResult(null);
             return PartialView("../Home/Detail/_FoodSearchShopFood", foods);
