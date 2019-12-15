@@ -32,6 +32,7 @@ function removeTabActive() {
     $(".tab-pane").each(function () {
         $(this).removeClass("active in");
     });
+    $(".active").removeClass("active");
 }
 /**
  * 註冊事件
