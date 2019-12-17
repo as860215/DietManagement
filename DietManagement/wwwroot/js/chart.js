@@ -27,12 +27,12 @@ function historyEvent(url) {
         lastHistoryClick = this;
 
         let historyType = 0;
-        if ($(this).attr("id") == "btn_trackHistory_weight") {
+        if ($(this).attr("id") === "btn_trackHistory_weight") {
             historyType = 1;
         }
 
         //如果搜尋條件都沒有資料則使用預設搜尋
-        if ($("#track_historyYear").val() == "" && $("#track_historyMonth").val() == "") {
+        if ($("#track_historyYear").val() === "" && $("#track_historyMonth").val() === "") {
             let defaultYear = new Date().getFullYear();
             let defaultMonth = new Date().getMonth();
             $("#track_historyYear").val(defaultYear);
@@ -58,7 +58,7 @@ function historyEvent(url) {
         }).done(function (data) {
             let title = "熱量";
             let color = "#ea464d";
-            if (historyType == 1) {
+            if (historyType === 1) {
                 title = "體重";
                 color = "#41BDFA";
             }

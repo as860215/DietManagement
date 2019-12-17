@@ -88,6 +88,8 @@
                     $("#track_alert").text("已新增一筆資料：「" + data.dataDate + " " + data.type + " " + data.value + "」");
                 else if(data.success == "update")
                     $("#track_alert").text("已更新一筆資料：「" + data.dataDate + " " + data.type + " " + data.value + "」");
+                if (lastHistoryClick != undefined)
+                    $(lastHistoryClick).click();
             });
         }
         //=========個人追蹤=========

@@ -30,7 +30,7 @@ function eventSet() {
         let bmi = parseInt(weight) / height / height;
         bmi = bmi.toFixed(2);
 
-        let bmr = (gender === true) ? 13.7 * weigh + 5 * height - 6.8 * age + 66 : 9.6 * weight + 1.8 * height - 4.7 * age + 655;
+        let bmr = (gender === false) ? 9.6 * weight + 1.8 * height - 4.7 * age + 655 : 13.7 * weigh + 5 * height - 6.8 * age + 66;
 
         if (sportType === "0")
             bmr = bmr * 1.2;
