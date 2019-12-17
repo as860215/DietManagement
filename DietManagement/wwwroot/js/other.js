@@ -1,4 +1,5 @@
-﻿//綁定計算熱量觸發事件
+﻿//=========計算熱量=========
+//綁定計算熱量觸發事件
 function eventSet() {
     //性別
     $("[name=radio_gender]").on("click", function () {
@@ -61,3 +62,57 @@ $("#titleCalories").on("click", function () {
 
     eventSet();
 });
+//=========計算熱量=========
+//=========食譜推推=========
+/**
+ * 搜尋食譜
+ * @param {any} url -
+ */
+function recipeSearchEvent(url) {
+    $("#btn_recipeSearch").on("click", function () {
+        let calories = $("#recipe_calories").val();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { calories: calories }
+        }).done(function (data) {
+            $("#recipe_searchResult").empty();
+            if (data === undefined || data === null) {
+                $("#recipe_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到指定範圍內相關的食譜！</span></div>");
+            }
+            else {
+                $("#recipe_searchResult").html(data);
+            }
+        });
+    });
+}
+//=========食譜推推=========
+//=========食物查詢=========
+$("#food_selectFood").on("change", function () {
+    let name = $("#food_selectFood option:selected").text();
+    let calories = $("#food_selectFood option:selected").val();
+    if (name == "請選擇...") {
+        $("#food_calories").text("");
+        return;
+    }
+    $("#food_calories").text(name + " " + calories + " 大卡")
+});
+function shopSearchEvent(url) {
+    $("#btn_shopSearch").on("click", function () {
+        let shopId = $("#food_selectShop").val();
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { shopId: shopId }
+        }).done(function (data) {
+            $("#food_searchResult").empty();
+            if (data === undefined || data === null) {
+                $("#food_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到商店內的食物資訊！</span></div>");
+            }
+            else {
+                $("#food_searchResult").html(data);
+            }
+        });
+    });
+}
+//=========食物查詢=========

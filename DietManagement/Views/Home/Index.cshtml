@@ -14,7 +14,7 @@
 @section scripts
 {
     <script src="~/js/chart.js"></script>
-    <script src="~/js/calories.js"></script>
+    <script src="~/js/other.js"></script>
     <script>
         let calories;
         $(function () {
@@ -28,53 +28,9 @@
             loginEvent('@Url.RouteUrl("Account_Login")');
             logoutEvent('@Url.RouteUrl("Account_Logout")');
             historyEvent('@Url.RouteUrl("Account_TrackHistory")');
+            recipeSearchEvent('@Url.RouteUrl("Home_GetRecipe")');
+            shopSearchEvent('@Url.RouteUrl("Home_GetShopFoods")');
         }
-
-        //=========食譜推推=========
-        $("#btn_recipeSearch").on("click", function () {
-            let calories = $("#recipe_calories").val();
-            $.ajax({
-                url: '@Url.RouteUrl("Home_GetRecipe")',
-                type: 'POST',
-                data: {calories:calories}
-            }).done(function (data) {
-                $("#recipe_searchResult").empty();
-                if (data === undefined || data === null) {
-                    $("#recipe_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到指定範圍內相關的食譜！</span></div>");
-                }
-                else {
-                    $("#recipe_searchResult").html(data);
-                }
-            });
-        });
-        //=========食譜推推=========
-        //=========食物查詢=========
-        $("#food_selectFood").on("change", function () {
-            let name = $("#food_selectFood option:selected").text();
-            let calories = $("#food_selectFood option:selected").val();
-            if (name == "請選擇...") {
-                $("#food_calories").text("");
-                return;
-            }
-            $("#food_calories").text(name + " " + calories + " 大卡")
-        });
-        $("#btn_shopSearch").on("click", function () {
-            let shopId = $("#food_selectShop").val();
-            $.ajax({
-                url: '@Url.RouteUrl("Home_GetShopFoods")',
-                type: 'POST',
-                data: {shopId:shopId}
-            }).done(function (data) {
-                $("#food_searchResult").empty();
-                if (data === undefined || data === null) {
-                    $("#food_searchResult").html("<div style='text-align:center'><span style='color:red'>查詢不到商店內的食物資訊！</span></div>");
-                }
-                else {
-                    $("#food_searchResult").html(data);
-                }
-            });
-        });
-        //=========食物查詢=========
         //=========個人追蹤=========
         $('#track_picker').datetimepicker({
             format:'yyyy/mm/dd',
