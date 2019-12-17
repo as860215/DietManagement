@@ -30,6 +30,8 @@
             historyEvent('@Url.RouteUrl("Account_TrackHistory")');
             recipeSearchEvent('@Url.RouteUrl("Home_GetRecipe")');
             shopSearchEvent('@Url.RouteUrl("Home_GetShopFoods")');
+            searchSportEvent('@Url.RouteUrl("Home_SearchSport")');
+            createSportEvent('@Url.RouteUrl("Home_CreateSport")');
         }
         //=========個人追蹤=========
         $('#track_picker').datetimepicker({
@@ -89,12 +91,5 @@
             });
         }
         //=========個人追蹤=========
-        //=========我要運動=========
-        $('#sport_picker').datetimepicker({
-            format:'yyyy/mm/dd',
-            minView: 'month',
-            autoclose: true
-        });
-        //=========我要運動=========
     </script>
 }

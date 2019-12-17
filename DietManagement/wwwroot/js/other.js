@@ -91,11 +91,11 @@ function recipeSearchEvent(url) {
 $("#food_selectFood").on("change", function () {
     let name = $("#food_selectFood option:selected").text();
     let calories = $("#food_selectFood option:selected").val();
-    if (name == "請選擇...") {
+    if (name === "請選擇...") {
         $("#food_calories").text("");
         return;
     }
-    $("#food_calories").text(name + " " + calories + " 大卡")
+    $("#food_calories").text(name + " " + calories + " 大卡");
 });
 function shopSearchEvent(url) {
     $("#btn_shopSearch").on("click", function () {
@@ -116,3 +116,51 @@ function shopSearchEvent(url) {
     });
 }
 //=========食物查詢=========
+//=========我要運動=========
+$('#sport_picker').datetimepicker({
+    format: 'yyyy/mm/dd 【 hh:00 】',
+    minView: 'day',
+    autoclose: true
+});
+/**
+ * 建立運動
+ * @param {any} url -
+ */
+function createSportEvent(url) {
+    $("#btn_createSport").on("click", function () {
+        let MemberId = $("#UserData_MemberId").val();
+        if (MemberId === undefined || MemberId === "") {
+            alert("建立失敗，尚未登入！！");
+            return;
+        }
+
+        let market = $("#sport_market").val();
+        let date = $("#sport_picker").data("date").split(" ")[0];
+        let time = $("#sport_picker").data("date").split(" ")[2];
+        let datetime = date + " " + time;
+        let sportDate = new Date(datetime);
+
+        if (datetime === "" || datetime === undefined) {
+            alert("請選擇日期！");
+            return;
+        }
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { MemberId : MemberId , market : market , sportDate : sportDate}
+        }).done(function (data) {
+            console.log(data);
+        });
+    });
+}
+/**
+ * 搜尋運動
+ * @param {any} url -
+ */
+function searchSportEvent(url) {
+    $("#btn_searchSport").on("click", function () {
+
+    });
+}
+//=========我要運動=========

@@ -19,5 +19,6 @@ namespace DietManagement
         Taichung = 1,
         [EnumMember, Description("高雄門市")]
         Kaohsiung = 2
+
     }
 }

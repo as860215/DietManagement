@@ -52,5 +52,29 @@ namespace DietManagement.Controllers
 
             return PartialView("../Home/Detail/_RecipeResult", (recipeDic, foodDic));
         }
+
+        /// <summary>
+        /// 建立指定門市與日期的運動
+        /// </summary>
+        /// <param name="sport"></param>
+        /// <returns></returns>
+        [HttpPost, Route("CreateSport", Name = "Home_CreateSport")]
+        public IActionResult CreateSport(Sport sport)
+        {
+            new SportHandle().InsertSport(sport);
+            return new JsonResult(new { MemberId = sport.MemberId });
+        }
+
+        /// <summary>
+        /// 搜尋指定門市與日期的運動資料
+        /// </summary>
+        /// <param name="market">門市</param>
+        /// <param name="date">日期</param>
+        /// <returns></returns>
+        [HttpPost, Route("SearchSport", Name = "Home_SearchSport")]
+        public IActionResult SearchSport(Market market,DateTime date)
+        {
+            return PartialView("../Home/Detail/_SportResult");
+        }
     }
 }
