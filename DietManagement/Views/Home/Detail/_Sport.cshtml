@@ -1,0 +1,40 @@
+﻿
+@{
+    var market = Enum.GetValues(typeof(Market)).Cast<Market>().Select(n => new SelectListItem { Text = n.GetDescription(), Value = ((int)n).ToString() }).ToList();
+}
+
+<style>
+    .sport{
+        padding:10px 0px;
+    }
+</style>
+
+<div style="width:80%;margin:0px auto">
+    <div class="row sport">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1" style="margin-top:3px;">
+            <span style="font-size:14pt">地點</span>
+        </div>
+        <div class="col-sm-4">
+            <select asp-items="market" id="sport_market" name="sport_market" style="font-size: 16pt;width:224px;height:28px" autocomplete="off"></select>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-1" style="margin-top:3px;">
+            <span style="font-size:14pt">時間</span>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <div class='input-group date' id='sport_picker'>
+                    <input type='text' class="form-control" id="sportdate" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row center" style="margin:30px auto;width:300px">
+        <span class="sportButton redButton" id="btn_createSport"><span>建立</span></span>
+        <span class="sportButton" style="float:right" id="btn_searchSport"><span>搜尋</span></span>
+    </div>
+</div>
