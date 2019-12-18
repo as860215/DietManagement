@@ -128,29 +128,33 @@ $('#sport_picker').datetimepicker({
  */
 function createSportEvent(url) {
     $("#btn_createSport").on("click", function () {
+        $("#sport_addResult").text("");
         let MemberId = $("#UserData_MemberId").val();
         if (MemberId === undefined || MemberId === "") {
             alert("建立失敗，尚未登入！！");
             return;
         }
 
+        if ($("#sport_picker").data("date") === undefined) {
+            $("#sport_addResult").text("請選擇日期！");
+            return;
+        }
+
         let market = $("#sport_market").val();
         let date = $("#sport_picker").data("date").split(" ")[0];
         let time = $("#sport_picker").data("date").split(" ")[2];
-        let datetime = date + " " + time;
-        let sportDate = new Date(datetime);
-
-        if (datetime === "" || datetime === undefined) {
-            alert("請選擇日期！");
-            return;
-        }
+        let datetime = date + " " + time + ":00";
 
         $.ajax({
             url: url,
             type: 'POST',
-            data: { MemberId : MemberId , market : market , sportDate : sportDate}
+            data: { MemberId: MemberId, market: market, sportDate: datetime}
         }).done(function (data) {
-            console.log(data);
+            if (data === null) {
+                $("#sport_addResult").text("建立失敗，請重新新增！");
+                return;
+            }
+            $("#sport_addResult").text("※已新增一筆「" + $("#sport_market option:selected").text() + "」運動於 " + data.sportDate + " " + data.sportTime + "點！");
         });
     });
 }

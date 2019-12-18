@@ -62,7 +62,7 @@ namespace DietManagement.Controllers
         public IActionResult CreateSport(Sport sport)
         {
             new SportHandle().InsertSport(sport);
-            return new JsonResult(new { MemberId = sport.MemberId });
+            return new JsonResult(new { sportDate = sport.SportDate.ToString("yyyy/MM/dd"),sportTime = sport.SportDate.ToString("HH") });
         }
 
         /// <summary>

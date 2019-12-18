@@ -18,7 +18,7 @@ namespace DietManagement
         [DataMember]
         public string SportId { get; set; }
         /// <summary>
-        /// 成員編號
+        /// 建立者成員編號
         /// </summary>
         [DataMember]
         public string MemberId { get; set; }

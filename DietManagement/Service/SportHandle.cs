@@ -27,7 +27,7 @@ namespace DietManagement
                            ,[SportDate]
                            ,[Market])
                      VALUES
-                           (@sport
+                           (@SportId
                            ,@MemberId
                            ,@SportDate
                            ,@Market)";
