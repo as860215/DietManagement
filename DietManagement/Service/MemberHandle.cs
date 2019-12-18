@@ -42,6 +42,7 @@ namespace DietManagement
         /// <param name="member"></param>
         public void InsertMember(Member member)
         {
+            member.MemberId = GetIdHelper().ToString("00000000");
             conn.connOpen(sqlCommand);
             using (conn)
             {
