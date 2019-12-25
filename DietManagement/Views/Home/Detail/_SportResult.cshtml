@@ -1,3 +1,57 @@
-﻿
+﻿@model List<Sport>
 @{
+    var sports = Model;
+    var count = 1;
 }
+<style>
+    #sportTableTr > td, #sportTableTr > th{
+        vertical-align: middle;
+    }
+
+    .joinSport{
+        float:right;
+        padding:8px 16px;
+    }
+</style>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" style="width:80px">序號</th>
+            <th scope="col" style="width:120px">性別</th>
+            <th scope="col" style="width:120px">門市</th>
+            <th scope="col" style="width:120px">姓名</th>
+            <th scope="col">時間</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sport in sports)
+        {
+            var member = new MemberHandle().GetMember(sport.MemberId);
+        <tr id="sportTableTr">
+            <th scope="row">@(count++)</th>
+            <td><img src="~/images/@(member.Gender == Gender.Man ? "boy" : "girl").png" style="width:64px" /></td>
+            <td>@sport.Market.GetDescription()</td>
+            <td>@(member.Name[0])@(member.Gender == Gender.Man ? "先生" : "小姐")</td>
+            <td>@sport.SportDate.ToString("yyyy/MM/dd HH:mm")</td>
+            <td>
+                <span class="sportButton joinSport" data-sportid="@sport.SportId"><span class="glyphicon glyphicon-plus" style="color:orangered"></span></span>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>
+    /**
+     * 加入運動
+     */
+    $(".joinSport").on("click", function () {
+        let sportid = $(this).data("sportid");
+        $.ajax({
+            url: '@Url.RouteUrl("Home_JoinSport")',
+            type: 'POST',
+            data: { sportId: sportid }
+        }).done(function (data) {
+            console.log(data);
+        });
+    });
+</script>

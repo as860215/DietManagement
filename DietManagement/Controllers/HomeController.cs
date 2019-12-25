@@ -62,7 +62,7 @@ namespace DietManagement.Controllers
         public IActionResult CreateSport(Sport sport)
         {
             new SportHandle().InsertSport(sport);
-            return new JsonResult(new { sportDate = sport.SportDate.ToString("yyyy/MM/dd"),sportTime = sport.SportDate.ToString("HH") });
+            return new JsonResult(new { sportDate = sport.SportDate.ToString("yyyy/MM/dd"), sportTime = sport.SportDate.ToString("HH") });
         }
 
         /// <summary>
@@ -72,9 +72,21 @@ namespace DietManagement.Controllers
         /// <param name="date">日期</param>
         /// <returns></returns>
         [HttpPost, Route("SearchSport", Name = "Home_SearchSport")]
-        public IActionResult SearchSport(Market market,DateTime date)
+        public IActionResult SearchSport(Market market, DateTime date)
         {
-            return PartialView("../Home/Detail/_SportResult");
+            var sports = new SportHandle().GetSport(market, date);
+            return PartialView("../Home/Detail/_SportResult", sports);
+        }
+
+        /// <summary>
+        /// 加入別人的運動
+        /// </summary>
+        /// <param name="sportId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("JoinSport", Name = "Home_JoinSport")]
+        public IActionResult JoinSport(string sportId)
+        {
+            return null;
         }
     }
 }

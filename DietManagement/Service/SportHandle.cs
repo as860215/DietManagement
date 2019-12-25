@@ -33,7 +33,25 @@ namespace DietManagement
                            ,@Market)";
                 conn.Execute(sql, sport);
             }
+        }
 
+        /// <summary>
+        /// 根據門市和時間取得運動資訊
+        /// </summary>
+        /// <param name="market">指定門市</param>
+        /// <param name="dateTime">指定時間</param>
+        /// <returns></returns>
+        public List<Sport> GetSport(Market market,DateTime dateTime)
+        {
+            var dateStart = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 0, 0, 0);
+            var dateEnd = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, 23, 59, 59);
+            using (conn)
+            {
+                var sql = $@"SELECT * FROM Sport
+                            WHERE Market = @market
+                            AND (SportDate BETWEEN @dateStart AND @dateEnd)";
+                return conn.Query<Sport>(sql, new { market, dateStart, dateEnd }).ToList();
+            }
         }
 
         /// <summary>

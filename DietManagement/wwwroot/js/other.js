@@ -118,8 +118,9 @@ function shopSearchEvent(url) {
 //=========食物查詢=========
 //=========我要運動=========
 $('#sport_picker').datetimepicker({
-    format: 'yyyy/mm/dd 【 hh:00 】',
-    minView: 'day',
+    format: 'yyyy/mm/dd hh:ii',
+    minView: 'hour',
+    defaultDate:new Date(),
     autoclose: true
 });
 /**
@@ -142,7 +143,7 @@ function createSportEvent(url) {
 
         let market = $("#sport_market").val();
         let date = $("#sport_picker").data("date").split(" ")[0];
-        let time = $("#sport_picker").data("date").split(" ")[2];
+        let time = $("#sport_picker").data("date").split(" ")[1];
         let datetime = date + " " + time + ":00";
 
         $.ajax({
@@ -164,7 +165,24 @@ function createSportEvent(url) {
  */
 function searchSportEvent(url) {
     $("#btn_searchSport").on("click", function () {
+        if ($("#sport_picker").data("date") === undefined) {
+            $("#sport_addResult").text("請選擇日期！");
+            return;
+        }
 
+        let market = $("#sport_market").val();
+        let date = $("#sport_picker").data("date").split(" ")[0];
+        let time = $("#sport_picker").data("date").split(" ")[1];
+        let datetime = date + " " + time + ":00";
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { market: market, date: datetime }
+        }).done(function (data) {
+            $("#sport_addResult").text("");
+            $("#sport_searchResult").html(data);
+        });
     });
 }
 //=========我要運動=========
