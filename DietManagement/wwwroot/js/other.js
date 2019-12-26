@@ -156,6 +156,7 @@ function createSportEvent(url) {
                 return;
             }
             $("#sport_addResult").text("※已新增一筆「" + $("#sport_market option:selected").text() + "」運動於 " + data.sportDate + " " + data.sportTime + "點！");
+            $("#btn_searchSport").click();
         });
     });
 }
@@ -175,10 +176,12 @@ function searchSportEvent(url) {
         let time = $("#sport_picker").data("date").split(" ")[1];
         let datetime = date + " " + time + ":00";
 
+        let memberId = $("#UserData_MemberId").val();
+
         $.ajax({
             url: url,
             type: 'POST',
-            data: { market: market, date: datetime }
+            data: { market: market, date: datetime, userId: memberId }
         }).done(function (data) {
             $("#sport_addResult").text("");
             $("#sport_searchResult").html(data);

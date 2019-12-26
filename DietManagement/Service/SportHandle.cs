@@ -12,7 +12,7 @@ namespace DietManagement
     public class SportHandle : DBConnect
     {
         /// <summary>
-        /// 加入運動
+        /// 新增運動
         /// </summary>
         /// <param name="sport"></param>
         public void InsertSport(Sport sport)
@@ -25,13 +25,51 @@ namespace DietManagement
                            ([SportId]
                            ,[MemberId]
                            ,[SportDate]
-                           ,[Market])
+                           ,[Market]
+                           ,[MemberJoinJson])
                      VALUES
                            (@SportId
                            ,@MemberId
                            ,@SportDate
-                           ,@Market)";
+                           ,@Market
+                           ,@MemberJoinJson)";
                 conn.Execute(sql, sport);
+            }
+        }
+
+        /// <summary>
+        /// 將成員加入運動
+        /// </summary>
+        /// <param name="sportId"></param>
+        public void JoinSport(string sportId,string joinMemberId)
+        {
+            var sport = GetSport(sportId);
+            var joinMember = sport.MemberJoins.MemberId;
+            joinMember.Add(joinMemberId);
+            sport.MemberJoinJson = Newtonsoft.Json.JsonConvert.SerializeObject(new MemberJoin() { MemberId = joinMember });
+
+            conn.connOpen(sqlCommand);
+            using (conn)
+            {
+                var sql = $@"UPDATE [dbo].[Sport]
+                               SET [MemberJoinJson] = @MemberJoins
+                             WHERE [SportId] = @sportId";
+                conn.Execute(sql, new { MemberJoins = sport.MemberJoinJson, sportId = sportId});
+            }
+        }
+
+        /// <summary>
+        /// 根據運動編號取得運動資訊
+        /// </summary>
+        /// <param name="sportId">運動編號</param>
+        /// <returns></returns>
+        public Sport GetSport(string sportId)
+        {
+            using (conn)
+            {
+                var sql = $@"SELECT * FROM Sport
+                            WHERE SportId = @sportId";
+                return conn.Query<Sport>(sql, new { sportId }).FirstOrDefault();
             }
         }
 

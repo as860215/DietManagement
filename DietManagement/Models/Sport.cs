@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace DietManagement
 {
@@ -32,5 +33,28 @@ namespace DietManagement
         /// </summary>
         [DataMember]
         public Market Market { get; set; }
+
+        /// <summary>
+        /// 加入成員清單SON
+        /// </summary>
+        [DataMember]
+        public string MemberJoinJson { get; set; }
+
+        /// <summary>
+        /// 加入成員清單
+        /// </summary>
+        public MemberJoin MemberJoins
+        {
+            get => JsonConvert.DeserializeObject<MemberJoin>(MemberJoinJson ?? "");
+            set => JsonConvert.SerializeObject(value);
+        }
+    }
+    /// <summary>
+    /// 加入成員清單JSON用
+    /// </summary>
+    public class MemberJoin
+    {
+        [DataMember]
+        public List<string> MemberId { get; set; }
     }
 }

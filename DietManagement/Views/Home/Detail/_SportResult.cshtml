@@ -1,6 +1,6 @@
-﻿@model List<Sport>
+﻿@model (List<Sport>,string)
 @{
-    var sports = Model;
+    var (sports,userId) = Model;
     var count = 1;
 }
 <style>
@@ -34,7 +34,15 @@
             <td>@(member.Name[0])@(member.Gender == Gender.Man ? "先生" : "小姐")</td>
             <td>@sport.SportDate.ToString("yyyy/MM/dd HH:mm")</td>
             <td>
-                <span class="sportButton joinSport" data-sportid="@sport.SportId"><span class="glyphicon glyphicon-plus" style="color:orangered"></span></span>
+                @if (sport.MemberJoins?.MemberId?.Any(n => n == userId) == false)
+                {
+                    <span class="sportButton joinSport" data-sportid="@sport.SportId"><span class="glyphicon glyphicon-plus" style="color:orangered"></span></span>
+                }
+                else
+                {
+                    <span style="float:right">您已經加入此活動</span>
+                    <span class="glyphicon glyphicon-calendar" style="float:right"></span>
+                }
             </td>
         </tr>
         }
@@ -45,13 +53,14 @@
      * 加入運動
      */
     $(".joinSport").on("click", function () {
+        let memberId = $("#UserData_MemberId").val();
         let sportid = $(this).data("sportid");
         $.ajax({
             url: '@Url.RouteUrl("Home_JoinSport")',
             type: 'POST',
-            data: { sportId: sportid }
+            data: { sportId: sportid , userId : memberId }
         }).done(function (data) {
-            console.log(data);
+            $("#btn_searchSport").click();
         });
     });
 </script>

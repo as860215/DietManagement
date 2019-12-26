@@ -61,6 +61,8 @@ namespace DietManagement.Controllers
         [HttpPost, Route("CreateSport", Name = "Home_CreateSport")]
         public IActionResult CreateSport(Sport sport)
         {
+            //預設將自己加入
+            sport.MemberJoinJson = Newtonsoft.Json.JsonConvert.SerializeObject(new MemberJoin() { MemberId = new List<string>() { sport.MemberId } });
             new SportHandle().InsertSport(sport);
             return new JsonResult(new { sportDate = sport.SportDate.ToString("yyyy/MM/dd"), sportTime = sport.SportDate.ToString("HH") });
         }
@@ -70,23 +72,26 @@ namespace DietManagement.Controllers
         /// </summary>
         /// <param name="market">門市</param>
         /// <param name="date">日期</param>
+        /// <param name="userId">登入人ID</param>
         /// <returns></returns>
         [HttpPost, Route("SearchSport", Name = "Home_SearchSport")]
-        public IActionResult SearchSport(Market market, DateTime date)
+        public IActionResult SearchSport(Market market, DateTime date,string userId)
         {
             var sports = new SportHandle().GetSport(market, date);
-            return PartialView("../Home/Detail/_SportResult", sports);
+            return PartialView("../Home/Detail/_SportResult", (sports,userId));
         }
 
         /// <summary>
         /// 加入別人的運動
         /// </summary>
         /// <param name="sportId"></param>
+        /// <param name="userId">登入人ID</param>
         /// <returns></returns>
         [HttpPost, Route("JoinSport", Name = "Home_JoinSport")]
-        public IActionResult JoinSport(string sportId)
+        public IActionResult JoinSport(string sportId, string userId)
         {
-            return null;
+            new SportHandle().JoinSport(sportId, userId);
+            return Ok();
         }
     }
 }
