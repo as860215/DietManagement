@@ -1,0 +1,29 @@
+﻿@model List<MarketType>
+@{
+    var marketTypes = Model;
+}
+<style>
+    .row > .col-sm-3 > ul > li {
+        border-bottom: 2px solid #36b9f4;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-3">
+        <ul class="nav flex-column">
+            @foreach (var marketType in marketTypes)
+            {
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#@(marketType.ElementName)">
+                        <span>@(marketType.Name)</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-sm-9">
+        <div class="tab-content">
+            <div id="shop_man" class="tab-pane fade">
+            </div>
+        </div>
+    </div>
+</div>

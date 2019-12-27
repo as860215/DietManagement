@@ -93,5 +93,16 @@
             });
         }
         //=========個人追蹤=========
+        //=========商店販售=========
+        $("#bar_shop").on("click", function () {
+            $.ajax({
+                url: '@Url.RouteUrl("Market_MainLoad")',
+                type: 'POST',
+                data: {}
+            }).done(function (data) {
+                $("#partial_market").html(data);
+            });
+        });
+        //=========商店販售=========
     </script>
 }
