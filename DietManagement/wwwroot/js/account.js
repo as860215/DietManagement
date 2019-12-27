@@ -23,7 +23,7 @@
         $("#partialTrack").addClass("active in");
     });
 
-    $("#btn_cancel").on("click", function () {
+    $(".cancel").on("click", function () {
         window.location.reload();
     });
 });
