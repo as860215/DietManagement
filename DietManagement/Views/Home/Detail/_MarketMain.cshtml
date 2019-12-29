@@ -8,12 +8,12 @@
     }
 </style>
 <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-3" style="margin-top:-40px">
         <ul class="nav flex-column">
             @foreach (var marketType in marketTypes)
             {
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#@(marketType.ElementName)">
+                    <a class="nav-link active market-type" data-toggle="tab" data-element="@(marketType.ElementName)" href="">
                         <span>@(marketType.Name)</span>
                     </a>
                 </li>
@@ -21,9 +21,21 @@
         </ul>
     </div>
     <div class="col-sm-9">
-        <div class="tab-content">
-            <div id="shop_man" class="tab-pane fade">
-            </div>
-        </div>
+        <div id="marketDetail"></div>
     </div>
 </div>
+<script>
+    //綁定標題事件
+    $(".market-type").on("click", function () {
+        $.ajax({
+            url: '@(Url.RouteUrl("Market_DetailLoad"))',
+            type: 'POST',
+            data: {elemantName: $(this).data("element")}
+        }).done(function (data) {
+            $("#marketDetail").html();
+            if (data === undefined || data === null)
+                return;
+            $("#marketDetail").html(data);
+        });
+    });
+</script>

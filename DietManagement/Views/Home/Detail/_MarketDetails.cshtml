@@ -1,0 +1,15 @@
+﻿@model MarketDetail
+@{
+    var detail = Model;
+}
+
+<div class="col-sm-4">
+    <img src="@(detail.Img)" style="width:100%;margin-bottom:5px"/>
+    <span>@detail.Name</span>
+    <div style="text-align:center">
+        <span style="color:red">售價：@detail.Price</span>
+    </div>
+    <div style="text-align:center;">
+        <span class="sportButton" style="padding:4px 10px"><span>加到購物車</span></span>
+    </div>
+</div>

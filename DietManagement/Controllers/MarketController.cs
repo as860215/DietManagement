@@ -21,5 +21,16 @@ namespace DietManagement.Controllers
             var market = new MarketHandle().GetMarketType();
             return PartialView("../Home/Detail/_MarketMain", market);
         }
+
+        /// <summary>
+        /// 讀取類別明細
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost, Route("DetailLoad", Name = "Market_DetailLoad")]
+        public IActionResult DetailLoad(string elemantName)
+        {
+            var detail = new MarketHandle().GetMarketDetailByName(elemantName);
+            return PartialView("../Home/Detail/_MarketDetail", detail);
+        }
     }
 }

@@ -23,5 +23,19 @@ namespace DietManagement
                 return conn.Query<MarketType>(sql).ToList();
             }
         }
+
+        /// <summary>
+        /// 根據元素名稱取得同類別的商品
+        /// </summary>
+        /// <param name="elementName"></param>
+        /// <returns></returns>
+        public List<MarketDetail> GetMarketDetailByName(string elementName)
+        {
+            using (conn)
+            {
+                var sql = $@"SELECT * FROM MarketDetail WHERE ElementName = @elementName";
+                return conn.Query<MarketDetail>(sql, new { elementName }).ToList();
+            }
+        }
     }
 }
