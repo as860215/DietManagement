@@ -103,9 +103,22 @@
                 $("#partial_market").html(data);
             });
         });
-        $("#cart").on("click", function ()){
+        $("#cart").on("click", function () {
+            let memberId = $("#UserData_MemberId").val();
+            if (memberId === undefined || memberId === null || memberId === "") {
+                alert("開啟購物車失敗，請先登入會員！");
+                return;
+            }
 
-        }
+            $.ajax({
+                url: '@Url.RouteUrl("Cart_GetTotal")',
+                type: 'POST',
+                data: { memberId: memberId }
+            }).done(function (data) {
+                removeTabActive();
+                $("#otherPartial").html(data);
+            });
+        });
         //=========商店販售=========
     </script>
 }

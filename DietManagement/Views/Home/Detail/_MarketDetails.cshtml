@@ -5,11 +5,52 @@
 
 <div class="col-sm-4">
     <img src="@(detail.Img)" style="width:100%;margin-bottom:5px"/>
-    <span>@detail.Name</span>
+    <span id="detail_@(detail.MarketDetailId)">@detail.Name</span>
     <div style="text-align:center">
         <span style="color:red">售價：@detail.Price</span>
     </div>
     <div style="text-align:center;">
-        <span class="sportButton" style="padding:4px 10px"><span>加到購物車</span></span>
+        <span class="sportButton addCart" style="padding:4px 10px" data-detailid="@detail.MarketDetailId" onclick="AddCartEvent(this)"><span>加到購物車</span></span>
     </div>
 </div>
+<script>
+    //加到購物車事件
+    function AddCartEvent(element) {
+        let memberId = $("#UserData_MemberId").val();
+        if (memberId === undefined || memberId === null || memberId === "") {
+            alert("加入購物車失敗，請先登入會員！");
+            return;
+        }
+
+        let detailId = $(element).data("detailid");
+
+        $.ajax({
+            url: '@Url.RouteUrl("Cart_Update")',
+            type: 'POST',
+            data: { MemberId: memberId, DetailId: detailId }
+        }).done(function (data) {
+            if (data === "Success") {
+                $(element).hide();
+                $("#cart_history").text($("#detail_" + detailId).text() + "已加入購物車！");
+                GetRandomColor();
+                setTimeout(function () {
+                    $(element).show();
+                }, 200);
+            }
+        });
+    }
+
+    //隨機顏色碼
+    function GetRandomColor() {
+        //顏色字串
+        var colorStr = "";
+        //字串的每一字元的範圍
+        var randomArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+        //產生一個六位的字串
+        for (var i = 0; i < 6; i++) {
+            //15是範圍上限，0是範圍下限，兩個函式保證產生出來的隨機數是整數
+            colorStr += randomArr[Math.ceil(Math.random() * 15)];
+        }
+        $("#cart_history").css("color", "#" + colorStr);
+    }
+</script>

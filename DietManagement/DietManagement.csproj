@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Home\Index.cshtml~RF247bc552.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="setting.config" />
   </ItemGroup>
 

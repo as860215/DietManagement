@@ -32,5 +32,29 @@ namespace DietManagement.Controllers
             var detail = new MarketHandle().GetMarketDetailByName(elemantName);
             return PartialView("../Home/Detail/_MarketDetail", detail);
         }
+
+        /// <summary>
+        /// 更新購物車
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
+        [HttpPost, Route("UpdateCart", Name = "Cart_Update")]
+        public IActionResult UpdateCart(Cart cart)
+        {
+            new CartHandle().UpdateCartDetail(cart, 1);
+            return Ok("Success");
+        }
+
+        /// <summary>
+        /// 根據成員編號取得其所有的購物車清單
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("GetTotalCart", Name = "Cart_GetTotal")]
+        public IActionResult GetTotalCart(string memberId)
+        {
+            var carts = new CartHandle().GetCartByMemberId(memberId);
+            return PartialView("../Home/Detail/_Cart", carts);
+        }
     }
 }

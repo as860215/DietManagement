@@ -1,0 +1,10 @@
+﻿@model List<Cart>
+@{
+    var carts = Model;
+}
+
+@foreach(var cart in carts)
+{
+    <span>@cart.MemberId @cart.Count</span>
+    <br />
+}
