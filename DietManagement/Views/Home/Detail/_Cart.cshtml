@@ -1,10 +1,54 @@
 ﻿@model List<Cart>
 @{
     var carts = Model;
+    var sum = 0;
 }
 
+<span style="font-size:32px;margin-bottom:10px">購物車清單</span>
 @foreach(var cart in carts)
 {
-    <span>@cart.MemberId @cart.Count</span>
-    <br />
+    var marketDetail = new MarketHandle().GetMarketDetailById(cart.DetailId);
+    <div class="row" style="border-top: 2px solid #36b9f430;margin:10px 0px">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+            <img src="@(marketDetail.Img)" style="width:160px;margin-bottom:5px" />
+        </div>
+        <div class="col-sm-4" style="line-height:160px">
+            <span>@marketDetail.Name</span>
+        </div>
+        <div class="col-sm-4" style="line-height:160px">
+            <span>
+                金額：@(marketDetail.Price)(單價) x @(cart.Count)(數量) = @(marketDetail.Price * cart.Count) 元
+                @{ 
+                    sum += marketDetail.Price * cart.Count.Value;
+                }
+            </span>
+        </div>
+        <div class="col-sm-1" style="line-height:160px">
+            <span class="glyphicon glyphicon-remove" style="color:red;cursor:pointer" data-detailId="@cart.DetailId" onclick="RemoveCartDetail(this)"></span>
+        </div>
+    </div>
 }
+<div class="row" style="border-top: 2px solid #36b9f430;margin:10px 0px">
+    <div class="col-sm-7"></div>
+    <div class="col-sm-5" style="line-height:70px">
+        <span>
+            總計：@sum 元
+        </span>
+    </div>
+</div>
+<script>
+    function RemoveCartDetail(element) {
+        let memberId = $("#UserData_MemberId").val();
+        let detailId = $(element).data("detailid");
+        $.ajax({
+            url: '@Url.RouteUrl("Cart_RemoveDetail")',
+            type: 'POST',
+            data: { MemberId: memberId, DetailId: detailId }
+        }).done(function (data) {
+            if (data === "Success") {
+                $("#cart").click();
+            }
+        });
+    }
+</script>

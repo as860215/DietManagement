@@ -33,6 +33,10 @@
             searchSportEvent('@Url.RouteUrl("Home_SearchSport")');
             createSportEvent('@Url.RouteUrl("Home_CreateSport")');
         }
+        $("[data-toggle='tab']").on("click", function () {
+            $("#otherPartial").html("");
+        });
+
         //=========個人追蹤=========
         $('#track_picker').datetimepicker({
             format:'yyyy/mm/dd',
@@ -95,12 +99,14 @@
         //=========個人追蹤=========
         //=========商店販售=========
         $("#bar_shop").on("click", function () {
+            $("#cart_history").text("");
             $.ajax({
                 url: '@Url.RouteUrl("Market_MainLoad")',
                 type: 'POST',
                 data: {}
             }).done(function (data) {
                 $("#partial_market").html(data);
+                $("[data-element='man']").click();
             });
         });
         $("#cart").on("click", function () {

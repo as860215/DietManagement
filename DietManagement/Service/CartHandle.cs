@@ -77,5 +77,19 @@ namespace DietManagement
                 }
             }
         }
+
+        /// <summary>
+        /// 將指定的購物車明細移除
+        /// </summary>
+        /// <param name="cart"></param>
+        public void RemoveCartDetail(Cart cart)
+        {
+            using (conn)
+            {
+                var sql = $@"DELETE FROM [dbo].[Cart]
+                             WHERE MemberId=@MemberId AND DetailId=@DetailId";
+                conn.Execute(sql, cart);
+            }
+        }
     }
 }

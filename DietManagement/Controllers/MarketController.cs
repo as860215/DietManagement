@@ -56,5 +56,17 @@ namespace DietManagement.Controllers
             var carts = new CartHandle().GetCartByMemberId(memberId);
             return PartialView("../Home/Detail/_Cart", carts);
         }
+
+        /// <summary>
+        /// 移除指定購物車明細資料
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
+        [HttpPost, Route("RemoveDetail", Name = "Cart_RemoveDetail")]
+        public IActionResult RemoveDetail(Cart cart)
+        {
+            new CartHandle().RemoveCartDetail(cart);
+            return Ok("Success");
+        }
     }
 }
