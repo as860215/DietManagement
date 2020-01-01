@@ -1,0 +1,161 @@
+﻿@model Member
+@{
+    var member = Model;
+}
+<style>
+    .order-txt {
+        font-size: 16pt;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+</style>
+<div class="order-txt">
+    <span style="font-size:32px;margin-bottom:10px">訂購人資料</span>
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <span>訂購人姓名：</span>
+        </div>
+        <div class="col-sm-8">
+            <span id="orderName">@member.Name</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <span>E-mail：</span>
+        </div>
+        <div class="col-sm-8">
+            <span id="orderEmail">@member.Mail</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <span>連絡電話：</span>
+        </div>
+        <div class="col-sm-8">
+            <span id="orderPhone">@member.Phone</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-2">
+            <span>地址：</span>
+        </div>
+        <div class="col-sm-8">
+            <span id="orderAddress">@member.Address</span>
+        </div>
+    </div>
+</div>
+<form id="orderForm">
+    <div class="order-txt" style="margin-top:10px">
+        <input type="hidden" name="OrderMemberId" asp-for="@member.MemberId"/>
+        <span style="font-size:32px;margin-bottom:10px">收件人資料</span>
+        <div class="row center" style="margin:0px auto;width:400px">
+            <span class="sportButton redButton" id="cartCheckout_same" style="padding:6px 32px"><span>同訂購人資料</span></span>
+            <span class="sportButton" id="cartCheckout_edit" style="padding:6px 32px;margin-left:20px"><span>修改收件人資料</span></span>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-2">
+                <span>收件人姓名：</span>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" id="recipientName" name="RecipientName" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-2">
+                <span>E-mail：</span>
+            </div>
+            <div class="col-sm-8">
+                <input type="email" id="recipientEmail" name="RecipientMail" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-2">
+                <span>連絡電話：</span>
+            </div>
+            <div class="col-sm-8">
+                <input type="number" id="recipientPhone" name="RecipientPhone" maxlength="10" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-2">
+                <span>收貨地址：</span>
+            </div>
+            <div class="col-sm-8">
+                <input type="text" id="recipientAddress" name="RecipientAddress" required />
+            </div>
+        </div>
+    </div>
+</form>
+<div style="margin-top:10px">
+    <div class="row center" style="margin:30px auto;width:300px">
+        <span class="sportButton redButton" id="checkout_back"><span>回上一頁</span></span>
+        <span class="sportButton" id="checkout_confirm"><span>確認結帳</span></span>
+    </div>
+</div>
+
+<script>
+    $("#cartCheckout_same").on("click", function () {
+        $("#recipientName").val($("#orderName").text());
+        $("#recipientEmail").val($("#orderEmail").text());
+        $("#recipientPhone").val($("#orderPhone").text());
+        $("#recipientAddress").val($("#orderAddress").text());
+        $("#recipientName").attr("readonly", "readonly");
+        $("#recipientEmail").attr("readonly", "readonly");
+        $("#recipientPhone").attr("readonly", "readonly");
+        $("#recipientAddress").attr("readonly", "readonly");
+    });
+    $("#cartCheckout_edit").on("click", function () {
+        $("#recipientName").attr("readonly", null);
+        $("#recipientEmail").attr("readonly", null);
+        $("#recipientPhone").attr("readonly", null);
+        $("#recipientAddress").attr("readonly", null);
+    });
+    $("#checkout_back").on("click", function () {
+        $("#cart").click();
+    });
+    $("#checkout_confirm").on("click", function () {
+        let datas = $("#orderForm").serializeArray();
+        let order = {};
+        datas.forEach(n => {
+            n.name = n.name.replace("member.", "");
+        });
+        $.map(datas, function (n, i) {
+            order[n['name']] = n['value'];
+        });
+        $.ajax({
+            url: '@Url.RouteUrl("Cart_Checkout")',
+            type: 'POST',
+            data: { order:order}
+        }).done(function (data) {
+            if (data.fail !== undefined) {
+                alert("訂購失敗，請重新確認！");
+                return;
+            }
+            removeTabActive();
+            $("#otherPartial").html(data);
+            setTimeout(function () {
+                $("a[href='#Shop']").click();
+            }, 2000);
+        });
+    });
+</script>

@@ -30,7 +30,7 @@ namespace DietManagement
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        private int GetDetailCount(Cart cart)
+        public int GetDetailCount(Cart cart)
         {
             using (conn)
             {
@@ -89,6 +89,20 @@ namespace DietManagement
                 var sql = $@"DELETE FROM [dbo].[Cart]
                              WHERE MemberId=@MemberId AND DetailId=@DetailId";
                 conn.Execute(sql, cart);
+            }
+        }
+
+        /// <summary>
+        /// 清空指定成員購物車清單
+        /// </summary>
+        /// <param name="memberId"></param>
+        public void RemoveMemberCart(string memberId)
+        {
+            using (conn)
+            {
+                var sql = $@"DELETE FROM [dbo].[Cart]
+                             WHERE MemberId=@memberId";
+                conn.Execute(sql, new { memberId });
             }
         }
     }

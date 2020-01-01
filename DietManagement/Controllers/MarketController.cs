@@ -68,5 +68,30 @@ namespace DietManagement.Controllers
             new CartHandle().RemoveCartDetail(cart);
             return Ok("Success");
         }
+
+        /// <summary>
+        /// 確認結帳(填寫運送位址)
+        /// </summary>
+        /// <param name="memberId"></param>
+        /// <returns></returns>
+        [HttpPost, Route("CheckoutConfirm", Name = "Cart_CheckoutConfirm")]
+        public IActionResult CheckoutConfirm(string memberId)
+        {
+            var member = new MemberHandle().GetMember(memberId);
+            return PartialView("../Home/Detail/_CartCheckoutConfirm", member);
+        }
+
+        /// <summary>
+        /// 結帳
+        /// </summary>
+        /// <param name="order">訂單資訊</param>
+        /// <returns></returns>
+        [HttpPost, Route("Checkout", Name = "Cart_Checkout")]
+        public IActionResult Checkout(Order order)
+        {
+            new OrderHandle().AddOrder(order);
+            new CartHandle().RemoveMemberCart(order.OrderMemberId);
+            return PartialView("../Home/Detail/_CartCheckoutSuccess");
+        }
     }
 }

@@ -67,5 +67,10 @@ namespace DietManagement
         /// </summary>
         [DataMember]
         public DateTime? Birthday { get; set; }
+        /// <summary>
+        /// 地址
+        /// </summary>
+        [DataMember]
+        public string Address { get; set; }
     }
 }

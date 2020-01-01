@@ -5,7 +5,7 @@
 }
 
 <span style="font-size:32px;margin-bottom:10px">購物車清單</span>
-@foreach(var cart in carts)
+@foreach (var cart in carts)
 {
     var marketDetail = new MarketHandle().GetMarketDetailById(cart.DetailId);
     <div class="row" style="border-top: 2px solid #36b9f430;margin:10px 0px">
@@ -19,7 +19,7 @@
         <div class="col-sm-4" style="line-height:160px">
             <span>
                 金額：@(marketDetail.Price)(單價) x @(cart.Count)(數量) = @(marketDetail.Price * cart.Count) 元
-                @{ 
+                @{
                     sum += marketDetail.Price * cart.Count.Value;
                 }
             </span>
@@ -29,7 +29,7 @@
         </div>
     </div>
 }
-<div class="row" style="border-top: 2px solid #36b9f430;margin:10px 0px">
+<div class="row" style="border-top: 2px solid #36b9f430;margin:10px 0px 0px 0px">
     <div class="col-sm-7"></div>
     <div class="col-sm-5" style="line-height:70px">
         <span>
@@ -37,6 +37,11 @@
         </span>
     </div>
 </div>
+<div class="row center" style="margin:0px auto;width:300px">
+    <span class="sportButton redButton" id="cart_continue"><span>繼續購物</span></span>
+    <span class="sportButton" id="cart_checkout"><span>結帳</span></span>
+</div>
+
 <script>
     function RemoveCartDetail(element) {
         let memberId = $("#UserData_MemberId").val();
@@ -51,4 +56,18 @@
             }
         });
     }
+    $("#cart_continue").on("click", function () {
+        $("a[href='#Shop']").click();
+    });
+    $("#cart_checkout").on("click", function () {
+        let memberId = $("#UserData_MemberId").val();
+        $.ajax({
+            url: '@Url.RouteUrl("Cart_CheckoutConfirm")',
+            type: 'POST',
+            data: { memberId: memberId}
+        }).done(function (data) {
+            removeTabActive();
+            $("#otherPartial").html(data);
+        });
+    });
 </script>
