@@ -35,6 +35,7 @@
         <span>
             總計：@sum 元
         </span>
+        <input type="hidden" id="cart_sum" value="@sum"/>
     </div>
 </div>
 <div class="row center" style="margin:0px auto;width:300px">
@@ -43,6 +44,10 @@
 </div>
 
 <script>
+    $(function () {
+        if ($("#cart_sum").val() === "0")
+            $("#cart_checkout").remove();
+    });
     function RemoveCartDetail(element) {
         let memberId = $("#UserData_MemberId").val();
         let detailId = $(element).data("detailid");

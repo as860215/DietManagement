@@ -106,6 +106,9 @@
         </div>
     </div>
 </form>
+<div class="row" style="text-align:center">
+    <span id="checkout_alert" style="color:red"></span>
+</div>
 <div style="margin-top:10px">
     <div class="row center" style="margin:30px auto;width:300px">
         <span class="sportButton redButton" id="checkout_back"><span>回上一頁</span></span>
@@ -134,14 +137,24 @@
         $("#cart").click();
     });
     $("#checkout_confirm").on("click", function () {
+        $("#checkout_alert").text("");
+        let check = true;
         let datas = $("#orderForm").serializeArray();
         let order = {};
         datas.forEach(n => {
             n.name = n.name.replace("member.", "");
         });
         $.map(datas, function (n, i) {
+            if (n['value'] === "") {
+                $("#checkout_alert").text("請填寫所有的收件人資料！");
+                check = false;
+                return;
+            }
             order[n['name']] = n['value'];
         });
+        if (check === false)
+            return;
+
         $.ajax({
             url: '@Url.RouteUrl("Cart_Checkout")',
             type: 'POST',
